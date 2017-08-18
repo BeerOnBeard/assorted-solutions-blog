@@ -74,4 +74,6 @@ theme: so-fresh
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: https://__GH_TOKEN__@github.com/beeronbeard/assorted-solutions-blog.git
+  branch: deploy

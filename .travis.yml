@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- 6.0.0
+branches:
+  only:
+  - master
+
+install: npm install
+
+before_script:
+- sed -i "s/__GH_TOKEN__/${GH_TOKEN}/" _config.yml
+
+script: npm run deploy
