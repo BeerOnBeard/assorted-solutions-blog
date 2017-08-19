@@ -8,7 +8,7 @@ date: 2017-08-18
 
 I had been toying with the idea of putting a second router on the network for years. You are probably familiar all the different forms of procrastination I used, so I'll just skip that portion and get to the meat. I wanted to try DD-WRT because I had heard so many good things from my networking buddies. It is supposedly fairly reliable and opens up lots of possibilities with your network. Awesome!
 
-After some initial research, I decided to go with the [Wireless Distribution System (WDS)](https://www.dd-wrt.com/wiki/index.php/WDS) pattern. It promised to allow me to extend my network with an extra router wirelessly. No extra CAT5 cables running through the house. Just Internet everywhere. Little did I know, I was an idiot for thinking life could be so easy.
+After some initial research, I decided to go with the [Wireless Distribution System (WDS)](https://www.dd-wrt.com/wiki/index.php/WDS) pattern. It promised to allow me to extend my network with an extra router wirelessly. No extra CAT5 cables running through the house. Just internet everywhere. Little did I know, I was an idiot for thinking life could be so easy.
 
 ## Supplies
 
@@ -16,7 +16,7 @@ My guinea pig for DD-WRT. The glorious D-Link DIR-601!
 
 ![D-Link DIR-601](/images/DLinkDIR601.jpg)
 
-My current router/provider of Internet goodness. The ZyXEL VMG4380-B10A.
+My current router/provider of internet goodness. The ZyXEL VMG4380-B10A.
 
 ![ZyXEL VMG430-B10A](/images/ZyXELVMG4380.jpg)
 
@@ -44,7 +44,7 @@ After following the steps (except for step 2... overachievers), I had a shiny ne
 
 I'm going to preface this section with the following: read the fucking manual.
 
-As noted at the beginning of the journey, I had decided to use WDS to fill in some Internet gaps in my life. DD-WRT's page on [WDS Linked Router Network](https://www.dd-wrt.com/wiki/index.php/WDS) is an awesome resource for setting up a network in this way. I followed the instructions to the letter, had everything running correctly on each router, and went for the final connection that would fulfill my life's dream of having internet in my backyard. And then nothing happened.
+As noted at the beginning of the journey, I had decided to use WDS to fill in some internet gaps in my life. DD-WRT's page on [WDS Linked Router Network](https://www.dd-wrt.com/wiki/index.php/WDS) is an awesome resource for setting up a network in this way. I followed the instructions to the letter, had everything running correctly on each router, and went for the final connection that would fulfill my life's dream of having internet in my backyard. And then nothing happened.
 
 I thought to myself, "I must have done something wrong.". I'm not a network engineer. I really have no idea what I'm doing. I'm mostly just a monkey following instructions. I took a peek around the control panels in both routers and eventually sat down to try it again. I found issues that would prevent my system from working. For example, the instructions tell you to set preamble to "short". Sadly, my crappy little ZyXEL does not support a short preamble. I thought I was making progress!
 
