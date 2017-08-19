@@ -15,8 +15,9 @@ after_success:
 - git clone https://github.com/beeronbeard/assorted-solutions-blog.git output
 - cd output
 - git checkout deploy
+- ls
 - cd ..
-- rsync -a --delete public/ output/public
+- rsync -av --delete public/ output/public
 - cd output
 - git add -A .
 - git commit -m "Fresh blogs for you"
