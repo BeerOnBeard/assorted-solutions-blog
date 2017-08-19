@@ -14,9 +14,13 @@ after_success:
 - git config --global user.email "travis@travis-ci.org"
 - git clone https://github.com/beeronbeard/assorted-solutions-blog.git output
 - cd output
+- ls
 - git checkout deploy || git checkout --orphan deploy
+- ls
 - rm -rf public
+- ls
 - cd ..
+- ls
 - cp -rv ./public ./output/public
 - ls
 - cd output
