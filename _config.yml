@@ -76,4 +76,4 @@ theme: so-fresh
 deploy:
   type: git
   repo: https://__GH_TOKEN__@github.com/beeronbeard/assorted-solutions-blog.git
-  branch: deploy
+  branch: gh_pages
