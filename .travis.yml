@@ -9,7 +9,7 @@ install: npm install
 
 before_script:
 - git config --global user.name "Travis"
-- git config --global user.email "none@no.com"
+- git config --global user.email "no@no.com"
 - sed -i "s/__GH_TOKEN__/${GH_TOKEN}/" _config.yml
 
 script: npm run deploy
