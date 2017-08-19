@@ -18,7 +18,9 @@ after_success:
 - rm -rf public
 - cd ..
 - cp -rv ./public ./output/public
+- ls
 - cd output
+- ls
 - git add -A .
 - git commit -m "Fresh blogs for you"
 - git push https://${GH_TOKEN}@github.com/beeronbeard/assorted-solutions-blog.git deploy
