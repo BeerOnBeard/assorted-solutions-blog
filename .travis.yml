@@ -14,18 +14,11 @@ after_success:
 - git config --global user.email "travis@travis-ci.org"
 - git clone https://github.com/beeronbeard/assorted-solutions-blog.git output
 - cd output
-- ls
-- git checkout deploy || git checkout --orphan deploy
-- ls
+- git checkout deploy
 - rm -rf public
-- ls
 - cd ..
-- ls
-- cp -rv ./public ./output/public
-- ls
+- cp -r ./public ./output/public
 - cd output
-- ls
 - git add -A .
 - git commit -m "Fresh blogs for you"
 - git push https://${GH_TOKEN}@github.com/beeronbeard/assorted-solutions-blog.git deploy
-
