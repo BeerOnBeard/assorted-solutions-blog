@@ -17,7 +17,7 @@ after_success:
 - git checkout deploy || git checkout --orphan deploy
 - rm -rf public
 - cd ..
-- cp -r ./public ./output/public
+- cp -rv ./public ./output/public
 - cd output
 - git add -A .
 - git commit -m "Fresh blogs for you"
