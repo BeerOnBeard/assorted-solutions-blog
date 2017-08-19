@@ -13,3 +13,4 @@ before_script:
 - sed -i "s/__GH_TOKEN__/${GH_TOKEN}/" _config.yml
 
 script: npm run deploy
+
