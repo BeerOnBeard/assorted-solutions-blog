@@ -19,7 +19,7 @@ script: npm run build
 after_success:
 - git config --global user.name "Travis CI"
 - git config --global user.email "travis@travis-ci.org"
-- cp -r public output/public
+- cp -r public/ output/public/
 - cd output
 - git add -A .
 - git commit -m "Fresh blogs for you"
