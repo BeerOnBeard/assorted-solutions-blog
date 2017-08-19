@@ -17,6 +17,7 @@ after_success:
 - git checkout deploy
 - cd ..
 - rsync -a --delete public/ output/public
+- rsync -a Dockerfile output
 - cd output
 - git add -A .
 - git commit -m "Fresh blogs for you"
