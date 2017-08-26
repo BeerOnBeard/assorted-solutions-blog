@@ -33,23 +33,23 @@ img {
   align-items: center;
 }
 
-.nav--item {
+.nav__item {
   cursor: pointer;
   opacity: .6;
   transition: opacity 1s ease;
 }
 
-.nav--item:hover {
+.nav__item:hover {
   opacity: 1;
 }
 
-.nav--item a {
+.nav__item a {
   color: #000;
   font-size: 1.5rem;
   text-decoration: none;
 }
 
-.nav--item img {
+.nav__item img {
   height: 2.5rem;
 }
 
@@ -72,7 +72,7 @@ img {
   color: #333;
 }
 
-.post--date {
+.post__date {
   color: #aaa;
 }
 
@@ -83,7 +83,7 @@ img {
 }
 
 .post:hover .growing-line,
-.article--title:hover .growing-line {
+.article__title:hover .growing-line {
   width: 9rem;
 }
 
@@ -93,7 +93,7 @@ img {
 }
 
 @media screen and (min-width: 426px) {
-  .nav--item img {
+  .nav__item img {
     height: 3.5rem;
   }
 }
