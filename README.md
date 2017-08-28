@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/BeerOnBeard/assorted-solutions-blog.svg?branch=master)](https://travis-ci.org/BeerOnBeard/assorted-solutions-blog)
+
 # The Site
 The site is built on top of [Hexo](https://hexo.io). I created a custom theme, so-fresh. The theme does not comply with the current standards for a stand-alone Hexo theme, but it works for this site. It's a very basic blog platform for me to write on.
 
