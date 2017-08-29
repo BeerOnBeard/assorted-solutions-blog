@@ -1,5 +1,5 @@
 [![Travis](https://img.shields.io/travis/BeerOnBeard/assorted-solutions-blog.svg?style=flat-square)](https://travis-ci.org/BeerOnBeard/assorted-solutions-blog)
-[![Docker Build Status](https://img.shields.io/docker/build/BeerOnBeard/assorted-solutions-blog.svg?style=flat-square)](https://hub.docker.com/r/beeronbeard/assorted-solutions-blog/)
+[![Docker Build Status](https://img.shields.io/docker/build/beeronbeard/assorted-solutions-blog.svg?style=flat-square)](https://hub.docker.com/r/beeronbeard/assorted-solutions-blog/)
 
 # The Site
 The site is built on top of [Hexo](https://hexo.io). I created a custom theme, so-fresh. The theme does not comply with the current standards for a stand-alone Hexo theme, but it works for this site. It's a very basic blog platform for me to write on.
