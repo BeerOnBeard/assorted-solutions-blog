@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/AS-Favicon.png">
+    <title>Assorted Solutions</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/css/so-fresh.css">
+  <link rel="stylesheet" href="/css/prism-vs.css" type="text/css"></head>
+  <body>
+    <div class="header">
+      <div class="nav">
+        <div class="nav__item">
+          <a href="https://assortedsolutions.com"><img src="/images/AS-Logo.svg"></a>
+        </div>
+        <div class="nav__item">
+          <a href="/">HOME</a>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      
+<div class="article">
+  <div class="article__title">
+    <h1>Line Endings and the Plight of Cross-Platform Development</h1>
+    <div class="growing-line"></div>
+  </div>
+  <p>I was recently writing a bash script to set up a new server I was going to spin up. I like to script out server setups and test them on local VMs before setting up the final production version. I was writing the script in <a href="https://code.visualstudio.com/" target="_blank" rel="external">Visual Studio Code</a> and using WinSCP to transfer the scripts over to the VM. When I spun up the VM, transferred the files and executed the script for the first time I ran into the following error:</p>
+<pre class=" language-bash"><code class="language-bash">Unable to execute <span class="token punctuation">[</span>file name<span class="token punctuation">]</span>: No such <span class="token function">file</span> or directory
+</code></pre>
+<p>I double checked that the files existed. I made sure I correctly ran <code>chmod +x</code>. Still nothing… what gives?!</p>
+<p>Well, Windows uses carriage return, line feed (CRLF) for line endings and Linux ditches the carriage return and only uses line feed (LF). When you directly copy the files over via SCP, the line endings remain the same. When the bash interpreter tries to read the shebang (#!/bin/bash) at the top of the script it explodes and gives you that awkward error. That awkward error made me think I didn’t have a file I definitely did.</p>
+<p>Luckily, VSCode has a handy helper in the lower-right of the editor that allows you to quickly change the line endings from CRLF. I went through my files, changed the line endings, and SCP’d again. The files are now executable!</p>
+<p><img src="/images/VSCode-Line-Ending-Sequence-Selector.png" alt="VSCode Line Ending Sequence Selector"></p>
+
+  <p>2017-09-01</p>
+</div>
+    </div>
+    <div class="footer">
+      <div>&copy; 2017 Adam Fournier</div>
+      <div>Powered by <a href="https://hexo.io/">Hexo.io</a></div>
+    </div>
+  </body>
+</html>
