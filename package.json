@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "hexo server",
     "build": "hexo generate",
-    "hexo": "hexo new post"
+    "new-post": "hexo new post"
   },
   "dependencies": {
     "hexo": "^3.2.0",
