@@ -19,6 +19,12 @@ img {
   margin: auto;
 }
 
+/* Not a fan of !important. Prism is loading after these styles and is part of the processing pipeline.
+   I can either !important or fork prism... */
+code[class*="language-"] {
+  white-space: pre-wrap !important;
+}
+
 .header, .footer {
   text-align: center;
   padding: 0.25rem;
