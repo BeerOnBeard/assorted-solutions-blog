@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/AS-Favicon.png">
+    <title>Assorted Solutions</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/css/so-fresh.css?v=1">
+  <link rel="stylesheet" href="/css/prism-vs.css" type="text/css"></head>
+  <body>
+    <div class="header">
+      <div class="nav">
+        <div class="nav__item">
+          <a href="https://assortedsolutions.com"><img src="/images/AS-Logo.svg"></a>
+        </div>
+        <div class="nav__item">
+          <a href="/">HOME</a>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      
+<div class="article">
+  <div class="article__title">
+    <h1>No More NPM CLI Packages?!</h1>
+    <div class="growing-line"></div>
+  </div>
+  <p>When using tools like Grunt, Gulp, Webpack, or Hexo.io, the best practice has been to install a CLI (command line interface) package globally using <code>npm install -g</code>. If you’re working on a bunch of projects with different versions of these tools, you have the potential to run into some sticky situations. For example, what if the build server is updated and your local dev machine is not? That can make for some really hard to find bugs. I can already hear “…but it works on my machine!”. NPM comes to the rescue with NPM scripts that allow you to access the packages installed in the project via bindings in package.json.</p>
+<p>Let’s use this blog as an example of how I’ve implemented some helpful NPM scripts for my local development and build server. I have the following in my package.json for this project.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">...</span>
+  <span class="token string">"scripts"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"dev"</span><span class="token punctuation">:</span> <span class="token string">"hexo server"</span><span class="token punctuation">,</span>
+    <span class="token string">"build"</span><span class="token punctuation">:</span> <span class="token string">"hexo generate"</span><span class="token punctuation">,</span>
+    <span class="token string">"new-post"</span><span class="token punctuation">:</span> <span class="token string">"hexo new post"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token operator">...</span>
+</code></pre>
+<p>I can execute each of these bindings from the command line. NPM will look to my project’s installed packages for <code>hexo</code>. When I want to generate the site and launch a dev http server for testing, I run the following in my terminal.</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run dev
+</code></pre>
+<p>I can even pass arguments. For example, to generate the Markdown file for this post, I ran the following command.</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run new-post <span class="token string">"No More NPM CLI Packages?!"</span>
+</code></pre>
+<p>There’s a lot more power built into the NPM scripts system that I haven’t covered here. Check out <a href="https://docs.npmjs.com/misc/scripts" target="_blank" rel="external">the NPM scripts docs</a> for more info on other useful features.</p>
+
+  <p>2017-09-04</p>
+</div>
+    </div>
+    <div class="footer">
+      <div>&copy; 2017 Adam Fournier</div>
+      <div>Powered by <a href="https://hexo.io/">Hexo.io</a></div>
+    </div>
+  </body>
+</html>
