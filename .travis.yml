@@ -18,6 +18,7 @@ after_success:
 - cd ..
 - rsync -a --delete public/ output/public
 - rsync -a Dockerfile output
+- rsync -a hooks output/hooks
 - cd output
 - git add -A .
 - git commit -m "Fresh blogs for you"
