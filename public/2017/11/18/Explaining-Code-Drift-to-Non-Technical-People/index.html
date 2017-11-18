@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/AS-Favicon.png">
+    <title>Assorted Solutions</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/css/so-fresh.css?v=1">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107289341-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)};
+      gtag('js', new Date());
+      gtag('config', 'UA-107289341-1');
+    </script>
+  <link rel="stylesheet" href="/css/prism-vs.css" type="text/css"></head>
+  <body>
+    <div class="header">
+      <div class="nav">
+        <div class="nav__item">
+          <a href="https://assortedsolutions.com"><img src="/images/AS-Logo.svg"></a>
+        </div>
+        <div class="nav__item">
+          <a href="/">HOME</a>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      
+<div class="article">
+  <div class="article__title">
+    <h1>Explaining Code Drift to Non-Technical People</h1>
+    <div class="growing-line"></div>
+  </div>
+  <p>Long-lived branches or forks of code take on a life of their own away from an active mainline such as master or trunk. Someone may commit code to the mainline that conflicts with changes made in that long-living branch or fork. It might be a simple one-line change that only causes a small merge conflict. It could also be a rewrite in the mainline that completely removes code the branch depended on. Mainline waits for no one!</p>
+<p>A while back, I was working with a non-technical product owner discussing whether we should pull a half-implemented feature set from the mainline because the company wanted the team to pivot. Not ideal, I know. I explained the risks and time it would take to pull it out versus just finishing and releasing. In the end, the product owner decided to “shelf” the feature.</p>
+<p>The concept of “shelving” a feature set is what spurred my explanation of code drift. In his mind, the code could sit in a branch and we would pick it up and continue working on it once the company was ready, without any issue. Here is how I explained what happens to code as it sits in long-lived branches as we continue work on the mainline.</p>
+<hr>
+<p>Imagine there is a 100 page article. You spend hours pouring over the text. The article is very interesting and you have some ideas on how to improve it. You take notes on some spelling mistakes, write some extra sections with new references you found, and think up a little bit of re-organization that, you hope, will help future readers. You compile all of this feedback and send it off in a beautifully crafted email to the original author. Then you wait.</p>
+<p>However, you are not the only person who has been enthusiastically reading this article and suggesting helpful changes to the original author. It turns out, there are hundreds of emails awaiting the author’s feedback. She does not get to read your email until a year later. By then, there have been countless revisions to the original text. The article looks nothing like the one you originally read and commented on. That beautifully crafted email, with its specific page numbers and line numbers, no longer provides actionable feedback for the author. If you want your changes to make it in, you will have to re-read the article and re-submit those ideas, if they even make sense in the new context.</p>
+<p>Lame.</p>
+<hr>
+<p>A few months later, I had an opportunity I was not expecting to ever have. We were back together discussing another round of features that were going into the platform. One of the feature sets happen to touch some of the same sections of code as the infamous “shelved” code. Even luckier for me, it touched some UI code. I took the opportunity to remind my non-technical friend of our code drift discussion and of that code that still sits waiting. I used the UI changes, specifically, to highlight how the updates that were being proposed would conflict with the UI updates from the old feature that sits abandoned. I watched as a deeper understanding of code drift and its impact wash over him. I never mentioned it again.</p>
+
+  <p>2017-11-18</p>
+</div>
+    </div>
+    <div class="footer">
+      <div>&copy; 2017 Adam Fournier</div>
+      <div>Powered by <a href="https://hexo.io/">Hexo.io</a></div>
+    </div>
+  </body>
+</html>
