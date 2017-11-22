@@ -33,7 +33,7 @@
     <h1>Line Endings and the Plight of Cross-Platform Development</h1>
     <div class="growing-line"></div>
   </div>
-  <p>I was recently writing a bash script to set up a new server I was going to spin up. I like to script out server setups and test them on local VMs before setting up the final production version. I was writing the script in <a href="https://code.visualstudio.com/" target="_blank" rel="external">Visual Studio Code</a> and using WinSCP to transfer the scripts over to the VM. When I spun up the VM, transferred the files and executed the script for the first time I ran into the following error:</p>
+  <p>I was recently writing a bash script to set up a new server I was going to spin up. I like to script out server setups and test them on local VMs before setting up the final production version. I was writing the script in <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Visual Studio Code</a> and using WinSCP to transfer the scripts over to the VM. When I spun up the VM, transferred the files and executed the script for the first time I ran into the following error:</p>
 <pre class=" language-bash"><code class="language-bash">Unable to execute <span class="token punctuation">[</span>file name<span class="token punctuation">]</span>: No such <span class="token function">file</span> or directory
 </code></pre>
 <p>I double checked that the files existed. I made sure I correctly ran <code>chmod +x</code>. Still nothing… what gives?!</p>
