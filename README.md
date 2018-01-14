@@ -8,3 +8,19 @@ The site is built on top of [Hexo](https://hexo.io). I created a custom theme, s
 The master branch holds the code for the site and configuration files for TravisCI and Docker. The deploy branch holds the generated static site and the Dockerfile. TravisCI is used to build the site every time a commit is made to master. If the generated site or the Dockerfile changes, TravisCI will push the updates to the deploy branch. If there are no changes, no code will be committed to the deploy branch. This prevents superfluous releases from being created.
 
 DockerHub is set up to watch the deploy branch. When a commit is made to the deploy branch, DockerHub will create a new container based on the NGINX image with the latest generated site. The container will be tagged as latest.
+
+# NPM Commands
+
+There are a few NPM commands for local development and the build system. These commands expose functionality provided by Hexo.io without the developer needing to install Hexo.io globally.
+
+## npm run new-post "Post Name"
+
+A helper method for adding a new post with the correct header information. A new file will be placed in the `./source/_posts` folder.
+
+## npm run dev
+
+Generate the site and start the built-in Hexo.io development server locally.
+
+## npm run build
+
+Generate the site.
