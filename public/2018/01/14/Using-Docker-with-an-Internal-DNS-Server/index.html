@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/AS-Favicon.png">
+    <title>Assorted Solutions</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/css/so-fresh.css?v=1">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107289341-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)};
+      gtag('js', new Date());
+      gtag('config', 'UA-107289341-1');
+    </script>
+  <link rel="stylesheet" href="/css/prism-vs.css" type="text/css"></head>
+  <body>
+    <div class="header">
+      <div class="nav">
+        <div class="nav__item">
+          <a href="https://assortedsolutions.com"><img src="/images/AS-Logo.svg"></a>
+        </div>
+        <div class="nav__item">
+          <a href="/">HOME</a>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      
+<div class="article">
+  <div class="article__title">
+    <h1>Using Docker with an Internal DNS Server</h1>
+    <div class="growing-line"></div>
+  </div>
+  <p>A few months ago, I was working on a build pipeline for GitBook based on Docker. The basic concept was to have a Linux build agent that would build Docker containers and push them to a repository. As I was building the scripts that would build the build agent on a local VM, I ran into an inconsistent error that turned out to be DNS resolution. When the issue hit, it looked like the build system could not locate a resource on the network. I would SSH to the system, run ping, and find that I could not resolve the host name. However, I could ping the IP directly. Long story short, if I built the VM using my scripts while I was connected to the VPN, the system would function fine. If I built the VM when I was not connected to the VPN, but then later connected to the VPN, the system would not know how to resolve hosts on my corporate network.</p>
+<p>As it turns out, Docker passes the DNS servers that are registered on the host into the Docker system for name resolution. When I spun up a new VM without a connection to my corporate network, the corporate DNS servers were not registered on the VM. I found a way to specify the DNS servers Docker should use to resolve DNS queries. I would not do this in a production environment because it would add an extra layer of complexity to the system that should not be needed. I only used this in my VMs to ease development as I connected and disconnected from different networks and VPN tunnels. My production system was spun up on the correct network, received the correct DNS servers from the get-go, and did not need to “travel” to different networks on a whim.</p>
+<p>OK! With the back-story and warning out of the way, let’s see how to hack this system into submission!</p>
+<p>First, we need to know the DNS servers we want to configure. Make sure the host is connected to the network you want to grab the DNS servers from and run the following commands. On a Windows host, you can run </p>
+<pre class=" language-cmd"><code class="language-cmd">ipconfig /all
+</code></pre>
+<p>to show all the connections. If you’re on Linux, you can use the Network Manager CLI tool.</p>
+<pre class=" language-bash"><code class="language-bash">nmcli d show <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'IP4.DNS'</span>
+</code></pre>
+<p>The previous command will show device information and filter the stream down to only the DNS servers that are configured.</p>
+<p>I had 5 DNS servers configured: 3 internal, 2 external. We can take this information and update Docker’s daemon.json file to use these DNS servers in containers. Update or create the file <code>/etc/docker/daemon.json</code> with the following entry:</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"dns"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"192.168.2.1"</span><span class="token punctuation">,</span> <span class="token string">"192.168.2.2"</span><span class="token punctuation">,</span> <span class="token string">"8.8.8.8"</span><span class="token punctuation">,</span> <span class="token string">"8.8.4.4"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The first two IPs are completely made up. Those should be replaced with the DNS servers for your internal network. The second two might be familiar. 8.8.8.8 and 8.8.4.4 are Google’s public DNS servers. They will be used as a fallback if the first two servers do not provide anything useful.</p>
+<p>Once the file is updated or created, restart the docker service.</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> systemctl restart docker
+</code></pre>
+<p>Then you can test to make sure the changes made it in. Alpine Linux is super light (5MB) and can be used for a quick test.</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> docker run -it alpine
+</code></pre>
+<p>Once you have a terminal, you can run the following inside the running Docker container:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cat</span> /etc/resolv.conf
+</code></pre>
+<p>You should see all the DNS entries you configured. While still on the terminal inside the running Docker container, we can run some tests to make sure we configured everything correctly:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">ping</span> google.com -c2
+<span class="token function">ping</span> some-internal.source-control.server -c2
+</code></pre>
+<p>The first command will ping Google to see if it can be resolved. The second command should be updated to ping a local resource by DNS name.</p>
+<p>Since everything came back AOK, we’re ready to keep on hacking on our VM! Time to finish scripting out our build server before deploying to production!</p>
+
+  <p>2018-01-14</p>
+</div>
+    </div>
+    <div class="footer">
+      <div>&copy; 2018 Adam Fournier</div>
+      <div>Powered by <a href="https://hexo.io/">Hexo.io</a></div>
+    </div>
+  </body>
+</html>
