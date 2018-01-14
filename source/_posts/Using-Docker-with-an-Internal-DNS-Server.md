@@ -4,9 +4,9 @@ subtitle: Passing Corporate or Personal DNS Servers Into Docker
 date: 2018-01-14
 ---
 
-A few months ago, I was working on a build pipeline for GitBook based on Docker. The basic concept was to have a Linux build agent that would build Docker containers and push them to a repository. As I was building that scripts that would build the build agent on a local VM, I ran into an inconsistent error that turned out to be DNS resolution. When the issue hit, it looked like the build system could not locate a resource on the network. I would SSH to the system and ping and find that I could not resolve the host name. However, I could ping the IP directly. Long story short, if I built the VM using my scripts while I was connected to the VPN, the system would function fine. If I built the VM when I was not connected to the VPN, but then later connected to the VPN, the system would not know how to resolve hosts on my corporate network.
+A few months ago, I was working on a build pipeline for GitBook based on Docker. The basic concept was to have a Linux build agent that would build Docker containers and push them to a repository. As I was building the scripts that would build the build agent on a local VM, I ran into an inconsistent error that turned out to be DNS resolution. When the issue hit, it looked like the build system could not locate a resource on the network. I would SSH to the system, run ping, and find that I could not resolve the host name. However, I could ping the IP directly. Long story short, if I built the VM using my scripts while I was connected to the VPN, the system would function fine. If I built the VM when I was not connected to the VPN, but then later connected to the VPN, the system would not know how to resolve hosts on my corporate network.
 
-As it turns out, Docker passes the DNS servers that are registered on the host into the Docker system for name resolution. When I spun up a new VM without a connection to my corporate network, the corporate DNS servers were not registered on the VM. I found a way to specify the DNS servers Docker should use to resolve DNS queries. I would not do this in a production environment because it would add an extra layer of complexity to the system that should not be needed. I only used this in my VMs to ease development as I connected and disconnected from many different networks and VPN tunnels. My production system was spun up on the correct network, received the correct DNS servers from the get-go, and did not need to "travel" to different networks on a whim.
+As it turns out, Docker passes the DNS servers that are registered on the host into the Docker system for name resolution. When I spun up a new VM without a connection to my corporate network, the corporate DNS servers were not registered on the VM. I found a way to specify the DNS servers Docker should use to resolve DNS queries. I would not do this in a production environment because it would add an extra layer of complexity to the system that should not be needed. I only used this in my VMs to ease development as I connected and disconnected from different networks and VPN tunnels. My production system was spun up on the correct network, received the correct DNS servers from the get-go, and did not need to "travel" to different networks on a whim.
 
 OK! With the back-story and warning out of the way, let's see how to hack this system into submission!
 
@@ -32,12 +32,12 @@ I had 5 DNS servers configured: 3 internal, 2 external. We can take this informa
 }
 ```
 
-The first two are completely made up. Those should be replaced with the DNS servers for your internal network. The second two might be familiar. 8.8.8.8 and 8.8.4.4 are Google's public DNS servers. They will be used as a fallback if the first two servers do not provide anything useful.
+The first two IPs are completely made up. Those should be replaced with the DNS servers for your internal network. The second two might be familiar. 8.8.8.8 and 8.8.4.4 are Google's public DNS servers. They will be used as a fallback if the first two servers do not provide anything useful.
 
-Once the files is updated or created, restart the docker service.
+Once the file is updated or created, restart the docker service.
 
 ```bash
-sudo system restart docker
+sudo systemctl restart docker
 ```
 
 Then you can test to make sure the changes made it in. Alpine Linux is super light (5MB) and can be used for a quick test.
