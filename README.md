@@ -13,9 +13,23 @@ DockerHub is set up to watch the deploy branch. When a commit is made to the dep
 
 There are a few NPM commands for local development and the build system. These commands expose functionality provided by Hexo.io without the developer needing to install Hexo.io globally.
 
-## npm run new-post "Post Name"
+## npm run new [layout] "Post Name"
 
-A helper method for adding a new post with the correct header information. A new file will be placed in the `./source/_posts` folder.
+A helper method for adding a new article with the specified layout. For example, running the following command will create a new post "New Post":
+
+```bash
+npm run new post "New Post"
+```
+
+Running this next command will create a draft called "New Draft":
+
+```bash
+npm run new draft "New Draft"
+```
+
+## npm run pub-draft "Draft Name"
+
+A helper method for publishing an existing draft as a post. The draft "New Draft" must already exist. It will be moved into the `_posts` folder.
 
 ## npm run dev
 
