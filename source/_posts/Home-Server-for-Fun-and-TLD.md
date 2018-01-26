@@ -13,7 +13,7 @@ So I decided I was going to break out that old computer, install Linux on it and
 
 Each one of these topics warrants a small post. So I'm going to split each of them out and link them all here. Happy reading!
 
-[Setting Up RAID 0 on Ubuntu 16.04 LTS Fresh Install (Coming Soon)]()
+[Setting Up RAID 0 on Ubuntu 16.04 LTS Fresh Install aka "UEFI RAID Blows GRUB"](/2018/01/26/UEFI-RAID-Blows-GRUB)
 [Setting Up a Bind9 Server in Docker (Coming Soon)]()
 [Setting Up a Samba Server in Docker (Coming Soon)]()
 [Setting Up a GitLab Instance in Docker (Coming Soon)]()
