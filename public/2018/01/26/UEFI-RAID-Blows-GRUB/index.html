@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/AS-Favicon.png">
+    <title>Assorted Solutions</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/css/so-fresh.css?v=1">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107289341-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)};
+      gtag('js', new Date());
+      gtag('config', 'UA-107289341-1');
+    </script>
+  <link rel="stylesheet" href="/css/prism-vs.css" type="text/css"></head>
+  <body>
+    <div class="header">
+      <div class="nav">
+        <div class="nav__item">
+          <a href="https://assortedsolutions.com"><img src="/images/AS-Logo.svg"></a>
+        </div>
+        <div class="nav__item">
+          <a href="/">HOME</a>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      
+<div class="article">
+  <div class="article__title">
+    <h1>UEFI RAID Blows GRUB</h1>
+    <div class="growing-line"></div>
+  </div>
+  <p>FOUR letter acronyms?!?! I thought we agreed to stick with THREE letter acronyms! I can think of a few choice four letter words to describe my experience with my RAID setup. But first. . . what are they?</p>
+<p><strong>UEFI:</strong> Unified Extensible Firmware Interface<br><strong>RAID:</strong> Redundant Array of Independent Disks<br><strong>GRUB:</strong> Grand Unified Bootloader</p>
+<p>Now to decrypt the cryptic title of this post. I wanted to use a machine I built in 2012 for something useful. I decided to build out a Linux system with git, a samba server, and a DNS server so I could have my own top-level domain. I outline the basics in a previous post, <a href="/2018/01/21/Home-Server-for-Fun-and-TLD">“Home Server for Fun and TLD”</a>. I hit some snags. Now it’s time to retrospect and leave some notes for my future self and any other poor soul that happens to stumble upon this post.</p>
+<p>tl;dr: Do not select <code>Force UEFI</code> when installing Ubuntu on a software RAID system if you want to set a partition as bootable during install.</p>
+<p>The system I was building on was an AMD FX-8120 with 16GB of RAM and two disks; one 1TB disk and one 1.5TB disk. It’s what I had lying around and I didn’t want to buy anything new. I figured I would just leave the extra 500GB alone and hope the 1TB disk ate it before the 1.5TB disk did and buy another 1.5TB disk when the time came. Then I could expand the RAID partition to use that extra space.</p>
+<p>After reading up on <a href="https://help.ubuntu.com/community/SwapFaq" target="_blank" rel="noopener">Ubuntu’s Swap FAQ</a>, and realizing this system would never hibernate, I decided to use an 8GB swap partition and use whatever was left for the main partition. Since I had two different sized drives, I would first partition the 1TB drive, get the exact size of the larger partition, and set the main partition on the 1.5TB drive to the same size. That would make RAIDing easy.</p>
+<p>Like any good engineer, I set up a test system before deploying to production. I decided to use <a href="https://www.virtualbox.org/wiki/VirtualBox" target="_blank" rel="noopener">VirtualBox</a> to install Ubuntu 16.04 LTS on top of two RAIDed virtual drives to get the hang of installing Ubuntu on a RAID system using <a href="https://linux.die.net/man/8/mdadm" target="_blank" rel="noopener">mdadm</a>. I made the two virtual drives different sizes to emulate what I was going to deal with in the production run.</p>
+<p>After downloading the ISO, I spun up the VM with the virtual disk mounted. The installation process is pretty much the same as any other install of Ubuntu recently. Just keep clicking <code>Enter</code> until it asks you for your name and password, then keep clicking <code>Enter</code> some more. The difference when installing on a new software RAID comes when you hit the partitioning section of the install. Using the <a href="https://help.ubuntu.com/community/Installation/SoftwareRAID" target="_blank" rel="noopener">Ubuntu page on Software RAID installation</a> as a guide, I chose the <code>Manual</code> partitioning method.</p>
+<p>I set up my partitions with the swap partition in the front. That way, in the future, I can expand the main partition to the end of the disk and have a single, contiguous partition. If I put the main partition at the beginning, I would have to move the swap partition to the end of the drive before expanding the main partition.</p>
+<p>I created the partitions on both drives. For the swap partitions, I set the <code>Use as</code> option to <code>swap area</code>. For the main partitions, I set the <code>Use as</code> option to <code>Ext4 journaling file system</code>, set the <code>Mount point</code> to <code>/</code>, and set the <code>Bootable flag</code> to <code>On</code>. I made the main partition on the larger drive the same size as the main partition on the smaller drive. I just left the rest of the space to hang out un-allocated.</p>
+<p>Then I set up RAID. I selected the <code>Configure software RAID</code> option and then <code>Create MD device</code>. I chose <code>RAID1</code>, then <code>2</code> active devices, then <code>0</code> spare devices. When asked to choose the active devices, I chose both swap partitions. Then I did the whole thing again for the main partitions. I chose <code>Yes</code> to write the changes to the storage devices and configure RAID and selected <code>Finish</code> when presented with <code>Software RAID configuration actions</code>. I ended up with RAID1 device #0 as my 8GB swap and RAID1 device #1 as my main partition.</p>
+<p>Back at the original <code>Partition disks</code> screen, I saw the RAID1 devices #0 and #1 at the top and the physical drives listed below. I selected the first partition on RAID1 device #0 and set <code>Use as</code> to <code>swap area</code>. Then selected the first partition on RAID1 device #1, set <code>Use as</code> to <code>Ext4 journaling file system</code>, set the <code>Mount point</code> to <code>/</code> then selected <code>Done</code>.</p>
+<p>Finally, I could <code>Finish partitioning and write changes to disk</code>! Boom! RAID1! The rest of the installation was clicking <code>Enter</code> and setting up user name and password. Easy peasy.</p>
+<p>With great confidence, I started up my production machine with a USB stick containing Ubuntu 16.04 LTS. Little did I know, I would spend hours trying to figure out why everything didn’t go as easily as the virtual system. . . </p>
+<p>Instead of boring you with the four letter words I yelled at my inanimate machine, I’ll skip to the solution. Basically, my motherboard supports UEFI. Ubuntu, earlier in the installation process, asked if I would like to force UEFI. I selected <code>yes</code> without thinking. I found out later, I could not set the partitions to be bootable if I selected <code>Force UEFI</code> earlier in the Ubuntu install. I wanted to set each partition as bootable so that, in the case that one drive failed, the system would still be able to boot on either living drive. Lesson learned. And now, lesson archived for my later self to remember.</p>
+<p>Happy RAIDing!</p>
+
+  <p>2018-01-26</p>
+</div>
+    </div>
+    <div class="footer">
+      <div>&copy; 2018 Adam Fournier</div>
+      <div>Powered by <a href="https://hexo.io/">Hexo.io</a></div>
+    </div>
+  </body>
+</html>
