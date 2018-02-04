@@ -1,3 +1,15 @@
+FROM node:carbon-alpine as generator
+
+WORKDIR /usr/generator
+
+COPY . .
+
+RUN npm install && \
+    npm run build
+
+###################################
+# Host image
+###################################
 FROM nginx:alpine
 
 ARG BUILD_DATE
@@ -8,4 +20,4 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.schema-version="1.0.0-rc1"
 
-COPY ./public /usr/share/nginx/html
+COPY --from=generator /usr/generator/public /usr/share/nginx/html
