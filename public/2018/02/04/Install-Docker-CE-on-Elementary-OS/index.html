@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/AS-Favicon.png">
+    <title>Assorted Solutions</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/css/so-fresh.css?v=1">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107289341-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)};
+      gtag('js', new Date());
+      gtag('config', 'UA-107289341-1');
+    </script>
+  <link rel="stylesheet" href="/css/prism-vs.css" type="text/css"></head>
+  <body>
+    <div class="header">
+      <div class="nav">
+        <div class="nav__item">
+          <a href="https://assortedsolutions.com"><img src="/images/AS-Logo.svg"></a>
+        </div>
+        <div class="nav__item">
+          <a href="/">HOME</a>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      
+<div class="article">
+  <div class="article__title">
+    <h1>Install Docker CE on Elementary OS</h1>
+    <div class="growing-line"></div>
+  </div>
+  <p>I just tried to install Docker CE on my new Elementary OS install (0.4.1 Loki) following the steps outlined on <a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">the Docker docs web site</a> and ran into a small issue. The scripts provided use <code>lsb_relese</code> when setting up the apt repository. Sadly, there’s no Loki-specific apt repository hosted at download.docker.com. Since this version of ElementaryOS is based on Ubuntu 16.04 LTS, I just hard-coded the command to add the apt repository to use <code>xenial</code> instead of <code>lsb_release</code> and kept on going. Here’s the full script.</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token keyword">set</span> -e
+
+<span class="token comment" spellcheck="true">##########################################################</span>
+<span class="token comment" spellcheck="true"># Install script for Docker-CE on ElementaryOS 0.4.1 Loki.</span>
+<span class="token comment" spellcheck="true"># Had to update the repository to point to xenial instead</span>
+<span class="token comment" spellcheck="true"># of using 'lsb_release -cs' because there's no loki</span>
+<span class="token comment" spellcheck="true"># repository at download.docker.com.</span>
+<span class="token comment" spellcheck="true">##########################################################</span>
+
+<span class="token function">sudo</span> <span class="token function">apt-get</span> update<span class="token punctuation">;</span>
+
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common<span class="token punctuation">;</span>
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="token operator">|</span> <span class="token function">sudo</span> apt-key add -<span class="token punctuation">;</span>
+
+<span class="token function">sudo</span> add-apt-repository <span class="token string">"deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"</span><span class="token punctuation">;</span>
+
+<span class="token function">sudo</span> <span class="token function">apt-get</span> update<span class="token punctuation">;</span>
+
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> docker-ce<span class="token punctuation">;</span>
+
+<span class="token function">sudo</span> systemctl <span class="token function">enable</span> docker<span class="token punctuation">;</span>
+
+<span class="token keyword">echo</span> <span class="token string">'All done!'</span>
+</code></pre>
+<p>I also have it hosted <a href="https://gist.github.com/BeerOnBeard/3828ab5c68fd77fdd8dc0d6c2079e245" target="_blank" rel="noopener">as a Gist on GitHub</a>.</p>
+
+  <p>2018-02-04</p>
+</div>
+    </div>
+    <div class="footer">
+      <div>&copy; 2018 Adam Fournier</div>
+      <div>Powered by <a href="https://hexo.io/">Hexo.io</a></div>
+    </div>
+  </body>
+</html>
