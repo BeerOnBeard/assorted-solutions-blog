@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/AS-Favicon.png">
+    <title>Assorted Solutions</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/css/so-fresh.css?v=1">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107289341-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)};
+      gtag('js', new Date());
+      gtag('config', 'UA-107289341-1');
+    </script>
+  <link rel="stylesheet" href="/css/prism-vs.css" type="text/css"></head>
+  <body>
+    <div class="header">
+      <div class="nav">
+        <div class="nav__item">
+          <a href="https://assortedsolutions.com"><img src="/images/AS-Logo.svg"></a>
+        </div>
+        <div class="nav__item">
+          <a href="/">HOME</a>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      
+<div class="article">
+  <div class="article__title">
+    <h1>It's Elementary!</h1>
+    <div class="growing-line"></div>
+  </div>
+  <p>I won a decommissioned engineering laptop from work a while back. I had upgraded the Windows 7 install that was originally on it to Windows 10 because it was free. However, I already had a Windows laptop. I’ve been pretty sick of using VirtualBox for all my Linux-based development, so I thought I would install a distribution directly on the hardware to have a dedicated Linux machine.</p>
+<p>ElementaryOS came up in one of my news feeds a while back. I thought it was pretty, then forgot about it. Then, a couple days ago I was shoulder surfing a colleague while we were working on spinning up a Linux build machine for work and noticed he had a very pretty OS running in a virtual machine. Lo and behold, ElementaryOS!</p>
+<p>This weekend I downloaded the ISO and spent a day working on stuff using the LiveCD mode. After a day, I realized that the distribution was pretty slick and it would be worth the trouble of wiping a hard drive and committing.</p>
+<p>The install was pretty straightforward, like most modern Linux distributions. Select your language and keyboard layout, allow it to blow away your hard drive and partition as it pleases, connect to WiFi and let it automagically install and update all the packages it needs. 10 to 15 minutes later, new OS.</p>
+<p>When I restarted for the first time, I got the error <code>Invalid partition table!</code> in white text on a black background. . . not a great start. Luckily, it was only my BIOS that was the issue. I jumped into the BIOS using F2 at post and updated the boot setting from legacy boot to UEFI. I restarted and life was good.</p>
+<p>The first thing I changed when I started using ElementaryOS was the single-click to open a file. Coming from a world of operating systems that have required me to double-click for my entire life, I found myself accidentally navigating into folders and executing applications all over the place. It’s easy to disable, so I did.</p>
+<pre class=" language-bash"><code class="language-bash">gsettings <span class="token keyword">set</span> org.pantheon.files.preferences single-click <span class="token boolean">false</span>
+</code></pre>
+<p>As a side note: using the application <code>dconf</code> worked in the LiveCD environment. However, once I actually installed ElementaryOS and booted to it for real, <code>dconf</code> wasn’t working correctly. I would write the setting as false, then open up the file manager and see that I still could single-click to open a folder. I would read the value for <code>single-click</code> again and it would be reverted. Lame. <code>gsettings</code> for the win. Moving on . . .</p>
+<p>I have a DisplayLink docking station that has monitors and peripherals all set up to dock my home system, my work system, or my wife’s system via USB. To get ElementaryOS working with that, I had to install the DisplayLink drivers from the <a href="http://www.displaylink.com/downloads/ubuntu" target="_blank" rel="noopener">DisplayLink Ubuntu downloads page</a>. ElementaryOS 0.4.1 Loki is based on Ubuntu 16.04.03 LTS. The page lists that the drivers are compatible with Ubuntu 16.04 and 17.10. Awesome.</p>
+<p>I downloaded the zip folder with a <code>.run</code> file, a license, and an empty <code>_MACOSX</code> folder. I only needed the file <code>displaylink-driver-4.1.9.run</code>. I updated the properties of the file to allow execution (<code>chmod +x displaylink-driver-4.1.9.run</code>). Before I could actually run the installer successfully, I had to install the dependency <a href="https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support" target="_blank" rel="noopener">DKMS</a>.</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> dkms
+</code></pre>
+<p>Then I could execute the <code>.run</code> file.</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> ./displaylink-driver-4.1.9.run
+</code></pre>
+<p>Finally, I plugged in the docking station. I had to go to System Settings &gt; Displays and enable the displays before they would start working. Now I have my monitors, keyboard, mouse and headphones. Sweet. Speaking of headphones . . .</p>
+<p>The default browser, Epiphany, does not support running the Spotify web player. So, I went searching for a way to install Spotify as a native application. Lucky for me, Spotify has <a href="https://www.spotify.com/us/download/linux/" target="_blank" rel="noopener">a dedicated web page for installing on Linux</a>. I followed the instructions for installing via a Debian package. Time to crank up the music.</p>
+
+  <p>2018-02-04</p>
+</div>
+    </div>
+    <div class="footer">
+      <div>&copy; 2018 Adam Fournier</div>
+      <div>Powered by <a href="https://hexo.io/">Hexo.io</a></div>
+    </div>
+  </body>
+</html>
