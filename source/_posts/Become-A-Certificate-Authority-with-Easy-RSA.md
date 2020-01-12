@@ -76,14 +76,14 @@ Bill needs:
 
 ## Revoking a Certificate
 
-Bill's certificate has been compromised and now we need to revoke his certificate to protect our system. Easy-RSA makes it... easy... (I even groaned for that one). In our `my-new-ca` directory, execute the following commands.
+Bill's certificate has been compromised and now we need to revoke his certificate to protect our system. Easy-RSA makes it... easy... (even I groaned for that one). In our `my-new-ca` directory, execute the following commands.
 
 ```bash
 ./easyrsa revoke bill
 ./easyrsa gen-crl
 ```
 
-Now all we have to do is copy the file `pki/crl.pem
+Now all we have to do is copy the file `pki/crl.pem` to our OpenVPN server and restart the system. Bill's certificate will no longer be accepted.
 
 ## Going Further
 
@@ -95,7 +95,7 @@ Second, there are two symbolic links that were created to the `easyrsa` executab
 
 Here's the `.gitignore` file
 
-```
+```bash
 easyrsa
 x509-types
 pki/safessl-easyrsa.cnf
