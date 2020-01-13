@@ -69,6 +69,7 @@ Using your favorite editor, open the file and add the following configurations.
 ```bash
 port 1194
 proto udp
+dev tun
 ca /etc/openvpn/keys/ca.crt
 cert /etc/openvpn/keys/openwrt.crt
 key /etc/openvpn/keys/openwrt.key
