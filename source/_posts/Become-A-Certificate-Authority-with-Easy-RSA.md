@@ -3,7 +3,7 @@ title: Become A Certificate Authority with Easy-RSA 3
 date: 2020-01-12 11:13:50
 ---
 
-Easy-RSA 3 makes it... easy... to set up a custom Certificate Authority (CA). I used this procedure to set up a CA and certificates for my OpenVPN system. I used `zsh` on Ubuntu 19.10. I chose to generate my CA and all certificates on my development laptop instead of my router where my OpenVPN server will live for a couple reasons. Firstly, my laptop has magnitudes more power than my router and will make generating the diffie-hellman key much faster. Also, I want to keep my private keys off the router just in case the router is compromised.
+Easy-RSA 3 makes it... easy... to set up a custom Certificate Authority (CA). I used this procedure to set up a CA and certificates for my OpenVPN system. I used `zsh` on Ubuntu 19.10. I chose to generate my CA and all certificates on my development laptop instead of my router where my OpenVPN server will live for a couple reasons. Firstly, my laptop has magnitudes more power than my router and will make generating the Diffie-Hellman key much faster. Also, I want to keep my private keys off the router just in case the router is compromised.
 
 To make this process easier to follow, let's set up some assumptions. Let's assume we want a single OpenVPN server and two clients. The server will be named `eric`. We'll have two clients named `stephanie` and `bill`.
 
@@ -27,7 +27,7 @@ cd my-new-ca
 
 I decided to use the parameter `nopass` so I don't have to manage passwords. For my system, having the certificate is enough security for me.
 
-To harden the system a bit more, I generated a diffie-hellman key and a control list key. The diffie-hellman key (aka [Diffie-Hellman-Merkle](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange#Name)) allows two computers to setup a shared secret so a public tunnel, like the internet, can be used for secret communication. The control list makes it easy to revoke certificates and have the vpn server reject users with those revoked certificates.
+To harden the system a bit more, I generated a Diffie-Hellman key and a control list key. The Diffie-Hellman key (aka [Diffie-Hellman-Merkle](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange#Name)) allows two computers to setup a shared secret so a public tunnel, like the internet, can be used for secret communication. The control list makes it easy to revoke certificates and have the vpn server reject users with those revoked certificates.
 
 ```bash
 ./easyrsa gen-dh

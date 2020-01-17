@@ -3,7 +3,7 @@ title: Setting Up Google DDNS on OpenWrt
 date: 2020-01-13 12:09:46
 ---
 
-I recently set up [a new router with OpenWrt](/2020/01/08/setting-up-openwrt) and [installed an OpenVPN server on it](/2020/01/12/openvpn-server-on-an-openwrt-router). In order to easily connect to that OpenVPN server when I'm on the move, I need to set up dynamic DNS support. I use Google to host my domains and I'll use that to host my dynamic DNS that points to my house.
+I recently set up [a new router with OpenWrt](/2020/01/08/Setting-Up-OpenWrt/) and [installed an OpenVPN server on it](/2020/01/13/OpenVPN-Server-on-an-OpenWrt-Router/). In order to easily connect to that OpenVPN server when I'm on the move, I need to set up dynamic DNS support. I use Google to host my domains and I'll use that to host my dynamic DNS that points to my house.
 
 First, a synthetic record must be set up in Google Domains. Let's assume we want to set up the hostname `myhouse.example.com`. Follow the [instructions provided by Google support to set up a Dynamic DNS synthetic record](https://support.google.com/domains/answer/6147083?hl=en).
 

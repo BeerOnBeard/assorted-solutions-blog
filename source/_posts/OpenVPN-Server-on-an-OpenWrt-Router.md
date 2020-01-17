@@ -3,7 +3,7 @@ title: OpenVPN Server on an OpenWrt Router
 date: 2020-01-13 09:03:51
 ---
 
-I recently [set up an OpenWrt router in my house](/2020/01/08/setting-up-openwrt) and now I would like to get a VPN server running on it. Here are the steps I took to get a simple OpenVPN server running on my OpenWrt router using the [custom certificate authority (CA) that I set up](/2020/01/12/become-a-certificate-authority-with-easy-rsa). I'm running Ubuntu 19.10 on my development machine and OpenWrt 18.06.5 on the router.
+I recently [set up an OpenWrt router in my house](/2020/01/08/Setting-Up-OpenWrt/) and now I would like to get a VPN server running on it. Here are the steps I took to get a simple OpenVPN server running on my OpenWrt router using the [custom certificate authority (CA) that I set up](/2020/01/12/Become-A-Certificate-Authority-with-Easy-RSA/). I'm running Ubuntu 19.10 on my development machine and OpenWrt 18.06.5 on the router.
 
 ## Goals and Assumptions
 
@@ -16,12 +16,12 @@ The goal is to run an OpenVPN server on an OpenWrt router that provides access t
 - The router is available at `192.168.20.1` to devices on the LAN
 
 - The OpenVPN server will be available publicly on UDP port 1194
-- The OpenVPN server will use a custom Certificate Authority as defined in the article [Become A Certificate Authority with Easy-RSA 3](/2020/01/12/become-a-certificate-authority-with-easy-rsa)
+- The OpenVPN server will use a custom Certificate Authority as defined in the article [Become A Certificate Authority with Easy-RSA 3](/2020/01/12/Become-A-Certificate-Authority-with-Easy-RSA/)
 - The server certificate created for the OpenVPN server uses the common name `openwrt`
 
 ## Setting Up the OpenVPN Server
 
-First up, the system needs certificates. Check out my article [Become a Certificate Authority with Easy-RSA](/2020/01/12/become-a-certificate-authority-with-easy-rsa). I'll assume all those steps are complete from here on out.
+First up, the system needs certificates. Check out my article [Become a Certificate Authority with Easy-RSA](/2020/01/12/Become-A-Certificate-Authority-with-Easy-RSA/). I'll assume all those steps are complete from here on out.
 
 Before we actually SSH to the router, there's a simple step in the [Hardening OpenVPN Security](https://openvpn.net/community-resources/hardening-openvpn-security/) article provided by OpenVPN we can use to add an extra security layer: TLS auth. I chose to store the key generated from this procedure in my CA folder. The following will generate the TLS auth key. I ran it in my CA folder in the `pki` sub-folder.
 
