@@ -1,10 +1,10 @@
-FROM node:carbon-alpine as generator
+FROM node:12-alpine as generator
 
 WORKDIR /usr/generator
 
 COPY . .
 
-RUN npm install && \
+RUN npm ci && \
     npm run build
 
 ###################################
