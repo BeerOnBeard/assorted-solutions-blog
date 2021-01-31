@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "hexo": {
-    "version": "4.2.0"
+    "version": "5.3.0"
   },
   "scripts": {
     "dev": "hexo server",
@@ -12,7 +12,7 @@
     "pub-draft": "hexo publish"
   },
   "dependencies": {
-    "hexo": "^4.2.0",
+    "hexo": "^5.3.0",
     "hexo-generator-index": "^1.0.0",
     "hexo-prism-plugin": "^2.3.0",
     "hexo-renderer-ejs": "^1.0.0",
